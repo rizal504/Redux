@@ -2,17 +2,31 @@ import React, { useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailMovie } from "./redux/actions/movieActions";
-// import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+import Safe from "react-safe";
 
 const DetailFilm = () => {
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.movie.movieId);
-  const detailMovie = useSelector((state) => state.movie.detailMovie);
-  // console.log("idhsghhs", detailMovie);
+  const detailMovie = useSelector((state) => state?.movie?.detailMovie);
+  const id = useSelector((state) => state?.movie?.movieId);
 
   useEffect(() => {
     dispatch(getDetailMovie(id));
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (detailMovie) {
+      // Set Disqus configuration
+      window.disqus_config = function () {
+        this.page.identifier = id; // Menggunakan ID film sebagai identifier Disqus
+      };
+
+      // Load Disqus comments
+      const script = document.createElement("script");
+      script.src = "https://filmapk.disqus.com/embed.js";
+      script.setAttribute("data-timestamp", +new Date());
+      document.head.appendChild(script);
+    }
+  }, [detailMovie]);
 
   return (
     <div>
@@ -56,27 +70,21 @@ const DetailFilm = () => {
               </p>
               <br />
               <p className="text-lg font-bold ">Genres :</p>
-              <div className="flex gap-5" >
+              <div className="flex gap-5">
                 {detailMovie?.genres?.map((genre) => (
-                  <div className="p-2 border rounded text-black bg-[#FFA500] font-semibold" key={genre.id}>
+                  <div
+                    className="p-2 border rounded text-black bg-[#FFA500] font-semibold"
+                    key={genre.id}
+                  >
                     <p>{genre.name}</p>
                   </div>
                 ))}
               </div>
-              {/* <button
-                className="mt-7 px-4 py-2  font-sans bg-white border border-solid border-gray-400 text-black rounded-md shadow-md hover:bg-gray-00 hover:border-gray-500 focus:outline-none focus:ring focus:ring-gray-300"
-                onClick={() => {
-                  navigate("/", { state: { id: detailMovie?.id } });
-                }}
-              >
-                <div >
-                <ArrowUturnLeftIcon className="w-5 h-5 inline text-black" />{" "}
-                </div>
-              </button> */}
             </div>
           </div>
         </div>
       </div>
+      <div className="m-5 p-10 border-md border-black" id="disqus_thread"></div>
     </div>
   );
 };

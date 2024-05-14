@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -10,18 +10,17 @@ const SearchFilm = () => {
 
   // Pengujian token harus ada token
   useEffect(() => {
-    console.log("localStorage ", localStorage.getItem("token"));
+    // console.log("localStorage ", localStorage.getItem("token"));
     if (localStorage.getItem("token") === null) {
       navigate("/");
     }
   }, []);
 
-
   return (
     <div className="container mx-auto bg-black">
       <div className="py-20">
         {/* Navbar */}
-       <Navbar/>
+        <Navbar />
         {/* Judul pencarian */}
         <h1 className="text-center text-3xl font-bold my-5 text-white">
           Search Film : {searchQuery}
@@ -58,8 +57,25 @@ const SearchFilm = () => {
             ))
           ) : (
             // Jika tidak ada hasil pencarian, tampilkan pesan "Data film kosong"
-            <div className="text-center col-span-5 py-10 text-lg text-yellow-400">
-              Film Tidak Ada
+
+            <div>
+              <div className="text-center col-span-5 py-10 text-lg text-yellow-400">
+                Film Tidak Ada
+              </div>
+
+              {/* <div className="absolute top-0 right-0 bg-black px-2 py-1 m-2 rounded-lg z-10 text-white bg-opacity-50">
+                <StarIcon className="w-5 h-5 inline text-yellow-400" />{" "}
+                {movie.vote_average}
+              </div>
+              <img
+                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                alt={movie.title}
+                className="rounded-xl shadow-md object-cover w-full h-full"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 text-white z-10">
+                <h2 className="text-xs font-bold text-center">{movie.title}</h2>
+                <p className="text-sm text-center">{movie.release_date}</p>
+              </div> */}
             </div>
           )}
         </div>

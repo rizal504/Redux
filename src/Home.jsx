@@ -71,7 +71,6 @@ const Home = () => {
       navigate("/");
     }
   }, []);
-
   return (
     <div className="container mx-auto bg-black">
       {/* Accordion */}

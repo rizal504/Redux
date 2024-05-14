@@ -48,7 +48,7 @@ const RegisterForm = () => {
       );
       console.log(responseRegister.data);
       // setSuccessMessage("Registrasi berhasil. Data Anda telah disimpan.");
-      localStorage.setItem("token", responseRegister.data.token);
+      // localStorage.setItem("token", responseRegister.data.token);
       toast.success("Registrasi berhasil. Silakan login.");
     } catch (error) {
       console.error("Error:", error);

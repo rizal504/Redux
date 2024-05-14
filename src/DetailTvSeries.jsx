@@ -8,8 +8,8 @@ const DetailTvSeries = () => {
 
   const dispatch = useDispatch();
   const id = useSelector((state) => state.movie.tvId);
-  const detailTvSeries = useSelector((state) => state.movie.detailTvSeries.data);
-  console.log("Tvserrrrr", detailTvSeries);
+  const detailTvSeries = useSelector((state) => state?.movie?.detailTvSeries?.data);
+  // console.log("Tvserrrrr", detailTvSeries);
 
   useEffect(() => {
     dispatch(getDetailTvSeries(id));
@@ -58,7 +58,7 @@ const DetailTvSeries = () => {
               <p className="text-lg font-bold ">Genres :</p>
               <div className="flex gap-5">
                 {detailTvSeries?.genres?.map((genre) => (
-                  <div className="p-2 border rounded text-black bg-[#FFA500] font-semibold">
+                  <div className="p-2 border rounded text-black bg-[#FFA500] font-semibold" key={genre.id}>
                     <p>{genre.name}</p>
                   </div>
                 ))}

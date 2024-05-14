@@ -57,16 +57,9 @@ const Login = () => {
     console.log("token", localStorage.getItem("token"));
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      setToken(storedToken);
-      alert("Tidak perlu login lagi, kamu masih aktif");
+      localStorage.setItem("token", storedToken);
+      alert("token masih aktif, tidak perlu login");
       navigate("/home");
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("localStorage ", localStorage.getItem("token"));
-    if (localStorage.getItem("token") === null) {
-      navigate("/");
     }
   }, []);
 
@@ -135,7 +128,6 @@ const Login = () => {
           <Link to={"/register"}>Belum Punya Akun? Daftar</Link>
         </div>
       </div>
-   
     </div>
   );
 };

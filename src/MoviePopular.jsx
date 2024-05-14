@@ -31,7 +31,7 @@ const MoviePopuler = () => {
 
   // Pengujian token harus ada token
   useEffect(() => {
-    console.log("localStorage ", localStorage.getItem("token"));
+    // console.log("localStorage ", localStorage.getItem("token"));
     if (localStorage.getItem("token") === null) {
       navigate("/");
     }
