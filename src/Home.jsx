@@ -43,7 +43,7 @@ const Home = () => {
 
   // Fecth Data TV Series
   const tvSeries = useSelector((state) => state?.movie?.tvSeries);
-  console.log("tv", tvSeries);
+  // console.log("tv", tvSeries);
   useEffect(() => {
     dispatch(getTvSeries());
   }, []);
@@ -66,7 +66,7 @@ const Home = () => {
 
   //Pengujian token harus ada token
   useEffect(() => {
-    console.log("localStorage ", localStorage.getItem("token"));
+    // console.log("localStorage ", localStorage.getItem("token"));
     if (localStorage.getItem("token") === null) {
       navigate("/");
     }

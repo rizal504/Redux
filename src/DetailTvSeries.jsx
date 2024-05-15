@@ -10,7 +10,7 @@ const DetailTvSeries = () => {
     (state) => state?.movie?.detailTvSeries?.data
     
   );
-  console.log("idi",id);
+  // console.log("idi",id);
   // console.log("Tvserrrrr", detailTvSeries);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const DetailTvSeries = () => {
       // Set Disqus configuration
       window.disqus_config = function () {
         this.page.identifier = id; // Menggunakan ID film sebagai identifier Disqus
-        console.log("id", id);
+        // console.log("id", id);
       };
 
       // Load Disqus comments

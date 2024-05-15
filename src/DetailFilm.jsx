@@ -18,14 +18,14 @@ const DetailFilm = () => {
       // Set Disqus configuration
       window.disqus_config = function () {
         this.page.identifier = id; // Menggunakan ID film sebagai identifier Disqus
-        console.log("id", id);
+        // console.log("id", id);
       };
 
       // Load Disqus comments
-      const script = document.createElement("script");
-      script.src = "https://filmapk.disqus.com/embed.js";
-      script.setAttribute("data-timestamp", +new Date());
-      document.head.appendChild(script);
+      const script = document.createElement("script"); //membuat blok element untuk memuat komentar Disqus.
+      script.src = "https://filmapk.disqus.com/embed.js"; // ambil fungsi yg diperlukan di web dan kirim data
+      script.setAttribute("data-timestamp", +new Date()); // buat set waktu sekarang
+      document.head.appendChild(script); // memuat elemen baru yg nantinya akan di render ke web
     }
   }, []);
 
@@ -86,7 +86,10 @@ const DetailFilm = () => {
         </div>
       </div>
       <div><p className=" py-10 text-2xl flex justify-center text-black font-bold">What do you think?</p></div>
-      <div className="m-5 px-10 border-md border-black" id="disqus_thread">
+      
+      {/* buat menampilkan komnetar dari id disqus_thread" */}
+      <div className="m-5 px-10 border-md border-black" id="disqus_thread"> 
+
         
       </div>
     </div>
