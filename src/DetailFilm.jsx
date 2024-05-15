@@ -11,13 +11,14 @@ const DetailFilm = () => {
 
   useEffect(() => {
     dispatch(getDetailMovie(id));
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (detailMovie) {
       // Set Disqus configuration
       window.disqus_config = function () {
         this.page.identifier = id; // Menggunakan ID film sebagai identifier Disqus
+        console.log("id", id);
       };
 
       // Load Disqus comments
@@ -26,7 +27,7 @@ const DetailFilm = () => {
       script.setAttribute("data-timestamp", +new Date());
       document.head.appendChild(script);
     }
-  }, [detailMovie]);
+  }, []);
 
   return (
     <div>
@@ -84,7 +85,10 @@ const DetailFilm = () => {
           </div>
         </div>
       </div>
-      <div className="m-5 p-10 border-md border-black" id="disqus_thread"></div>
+      <div><p className=" py-10 text-2xl flex justify-center text-black font-bold">What do you think?</p></div>
+      <div className="m-5 px-10 border-md border-black" id="disqus_thread">
+        
+      </div>
     </div>
   );
 };

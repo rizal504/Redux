@@ -1,18 +1,36 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { getDetailTvSeries } from "./redux/actions/movieActions";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const DetailTvSeries = () => {
-
   const dispatch = useDispatch();
   const id = useSelector((state) => state.movie.tvId);
-  const detailTvSeries = useSelector((state) => state?.movie?.detailTvSeries?.data);
+  const detailTvSeries = useSelector(
+    (state) => state?.movie?.detailTvSeries?.data
+    
+  );
+  console.log("idi",id);
   // console.log("Tvserrrrr", detailTvSeries);
 
   useEffect(() => {
     dispatch(getDetailTvSeries(id));
+  }, []);
+
+  useEffect(() => {
+    if (detailTvSeries) {
+      // Set Disqus configuration
+      window.disqus_config = function () {
+        this.page.identifier = id; // Menggunakan ID film sebagai identifier Disqus
+        console.log("id", id);
+      };
+
+      // Load Disqus comments
+      const script = document.createElement("script");
+      script.src = "https://filmapk.disqus.com/embed.js";
+      script.setAttribute("data-timestamp", +new Date());
+      document.head.appendChild(script);
+    }
   }, []);
 
   return (
@@ -31,7 +49,9 @@ const DetailTvSeries = () => {
           />
           <div className="text-white font-sans " key={detailTvSeries?.id}>
             <div className="p-4">
-              <h2 className="text-3xl font-semibold mb-2">{detailTvSeries?.name}</h2>
+              <h2 className="text-3xl font-semibold mb-2">
+                {detailTvSeries?.name}
+              </h2>
               <p className="text-lg">
                 <StarIcon className="w-5 h-5 inline text-yellow-400" />{" "}
                 {parseFloat(detailTvSeries?.vote_average).toFixed(1)}/ 10
@@ -41,7 +61,9 @@ const DetailTvSeries = () => {
               </p>
               <p className="text-lg">Status : {detailTvSeries?.status}</p>
               <p className="text-lg">Votes : {detailTvSeries?.vote_count}</p>
-              <p className="text-lg">Data Realese : {detailTvSeries?.first_air_date}</p>
+              <p className="text-lg">
+                Data Realese : {detailTvSeries?.first_air_date}
+              </p>
               <p className="text-lg">
                 production_countries :{" "}
                 {detailTvSeries?.production_countries
@@ -58,7 +80,10 @@ const DetailTvSeries = () => {
               <p className="text-lg font-bold ">Genres :</p>
               <div className="flex gap-5">
                 {detailTvSeries?.genres?.map((genre) => (
-                  <div className="p-2 border rounded text-black bg-[#FFA500] font-semibold" key={genre.id}>
+                  <div
+                    className="p-2 border rounded text-black bg-[#FFA500] font-semibold"
+                    key={genre.id}
+                  >
                     <p>{genre.name}</p>
                   </div>
                 ))}
@@ -82,6 +107,15 @@ const DetailTvSeries = () => {
           </div>
         </div>
       </div>
+      <div>
+        <p className=" py-10 text-2xl flex justify-center text-black font-bold">
+          What do you think?
+        </p>
+      </div>
+      <div
+        className="m-5 px-10 border-md border-black"
+        id="disqus_thread"
+      ></div>
     </div>
   );
 };

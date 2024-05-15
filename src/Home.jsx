@@ -28,14 +28,14 @@ const Home = () => {
   }, []);
 
   // Fecth Data Film Populer
-  const moviePopuler = useSelector((state) => state.movie.movies);
+  const moviePopuler = useSelector((state) => state.movie.moviePopuler);
   // console.log("moviepop", moviePopuler)
   useEffect(() => {
     dispatch(getMoviePopuler());
   }, []);
 
   // Fetch Data Segera Tayang
-  const segeraTayang = useSelector((state) => state.movie.movies);
+  const segeraTayang = useSelector((state) => state.movie.segeraTayang);
   // console.log("movieseg",segeraTayang )
   useEffect(() => {
     dispatch(getSegeraTayang());

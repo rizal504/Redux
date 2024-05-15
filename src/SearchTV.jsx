@@ -1,55 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavbarTv from "./NavbarTv";
+import { getTvSeries } from "./redux/actions/movieActions";
+import { useDispatch, useSelector } from "react-redux";
+import { setTvId } from "./redux/reducers/movieReducers";
 
 const SearchTv = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [query, setQuery] = useState(""); // Deklarasi state untuk query pencarian
   const location = useLocation();
   const { searchTv, searchQuery } = location.state;
   const navigate = useNavigate();
 
-    // Pengujian token harus ada token
-    useEffect(() => {
-      // console.log("localStorage ", localStorage.getItem("token"));
-      if (localStorage.getItem("token") === null) {
-        navigate("/");
-      }
-    }, []);
-
-  // Function untuk menangani perubahan pada input pencarian
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
-
-  // Function untuk menangani pengiriman formulir pencarian
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Navigasi ke halaman hasil pencarian dengan menyertakan query pencarian
-    navigate("/search-tv", { state: { searchQuery: query } });
-  };
-
-  // Function navbar Scroll
+  // Fecth Data TV Series
+  const dispatch = useDispatch();
+  const tvSeries = useSelector((state) => state?.movie?.tvSeries.slice(0, 5));
+  // console.log("tv", tvSeries);
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const shouldBeScrolled = scrollTop > 0;
-      setIsScrolled(shouldBeScrolled);
-    };
+    dispatch(getTvSeries());
+  }, []);
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+  // Pengujian token harus ada token
+  useEffect(() => {
+    // console.log("localStorage ", localStorage.getItem("token"));
+    if (localStorage.getItem("token") === null) {
+      navigate("/");
+    }
   }, []);
 
   return (
     <div className="container mx-auto bg-black">
       <div className="py-20">
         {/* Navbar */}
-      <NavbarTv/>
+        <NavbarTv />
         {/* Judul pencarian */}
         <h1 className="text-center text-3xl font-bold my-5 text-white">
           Search TV : {searchQuery}
@@ -83,9 +65,38 @@ const SearchTv = () => {
               </div>
             ))
           ) : (
-            <div className="text-center col-span-5 py-10 text-lg text-yellow-400">
-              Data Series TV kosong
-            </div>
+            <>
+              <p className="text-center col-span-5 py-10 text-xl text-yellow-400">
+                Data TV Series Tidak Ada
+              </p>
+              <p className="text-center col-span-5 pb-10 text-xl text-yellow-400">
+                Berikut TV Series yang cocok untuk anda
+              </p>
+              {tvSeries.map((tv) => (
+                <div
+                  key={tv.id}
+                  onClick={() => {
+                    navigate("/detail-tv");
+                    dispatch(setTvId(tv?.id));
+                  }}
+                  className="relative bg-white shadow-xl rounded-xl overflow-hidden transition duration-300 transform hover:scale-105"
+                >
+                  <div className="absolute top-0 right-0 bg-black px-2 py-1 m-2 rounded-lg z-10 text-white bg-opacity-50">
+                    <StarIcon className="w-5 h-5 inline text-yellow-400" />{" "}
+                    {tv.vote_average}
+                  </div>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200/${tv.poster_path}`}
+                    alt={tv.name}
+                    className="rounded-xl shadow-md object-cover w-full h-full"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 text-white z-10">
+                    <h2 className="text-xs font-bold text-center">{tv.name}</h2>
+                    <p className="text-sm text-center">{tv.first_air_date}</p>
+                  </div>
+                </div>
+              ))}
+            </>
           )}
         </div>
       </div>

@@ -29,7 +29,7 @@ export const getAllMovies = () => async (dispatch, getState) => {
 };
 
 export const getMoviePopuler = () => async (dispatch, getState) => {
-  // console.log("getstatepopuler", getState());
+  console.log("getstatepopuler", getState());
   try {
     const repsonse = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
@@ -65,12 +65,12 @@ export const getSegeraTayang = () => async (dispatch, getState) => {
 };
 
 export const getTvSeries = () => async (dispatch, getState) => {
-  // console.log("gettv", getState());
+  console.log("gettv", getState());
   try {
     const repsonse = await axios.get(
       `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`
     );
-    // console.log("tvSeries", repsonse);
+    console.log("tvSeries", repsonse);
     dispatch(setTvSeries(repsonse.data.results));
   } catch (error) {
     console.log("error", error);
@@ -85,14 +85,14 @@ export const getTvSeries = () => async (dispatch, getState) => {
 export const getDetailMovie = (id) => async (dispatch, getState) => {
   // console.log("getstatepopuler", getState());
   try {
-    // console.log("id aCtion", id);
+    console.log("id aCtion", id);
     const repsonse = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${API_KEY}`
     );
-    // console.log("segera", repsonse);
+    console.log("segera", repsonse);
     dispatch(setDetailMovie(repsonse.data));
   } catch (error) {
-    // console.log("error", error);
+    console.log("error", error);
     if (axios.isAxiosError(error)) {
       alert(error.message);
       return;
@@ -102,13 +102,13 @@ export const getDetailMovie = (id) => async (dispatch, getState) => {
 };
 
 export const getDetailTvSeries = (id) => async (dispatch, getState) => {
-  // console.log("getstatesereis", getState());
+  console.log("getstatesereis", getState());
   try {
-    // console.log("id Series", id);
+    console.log("id Series", id);
     const repsonse = await axios.get(
       `https://api.themoviedb.org/3/tv/${id}?language=en-US&api_key=${API_KEY}`
     );
-    // console.log("seriesssss", repsonse.data);
+    console.log("seriesssss", repsonse.data);
     dispatch(setDetailTvSeries(repsonse));
   } catch (error) {
     console.log("error", error);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -15,7 +14,7 @@ const MoviePopuler = () => {
 
   // Fecth Data Film Populer
   const dispatch = useDispatch();
-  const moviePopuler = useSelector((state) => state.movie.movies);
+  const moviePopuler = useSelector((state) => state.movie.moviePopuler);
   // console.log("moviepop", moviePopuler)
   useEffect(() => {
     dispatch(getMoviePopuler());
