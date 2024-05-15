@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log("token", localStorage.getItem("token"));
+    // console.log("token", localStorage.getItem("token"));
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       localStorage.setItem("token", storedToken);

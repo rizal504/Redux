@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailMovie } from "./redux/actions/movieActions";
-import Safe from "react-safe";
+// import Safe from "react-safe";
 
 const DetailFilm = () => {
   const dispatch = useDispatch();
